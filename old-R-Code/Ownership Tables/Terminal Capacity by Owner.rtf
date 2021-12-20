@@ -1,0 +1,133 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2578
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww14200\viewh25080\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #Capacity by company, prorated by ownership share\
+#format mtpa (Terminals) and PercentN (Owners) columns to numbers first\
+\
+  owners<-read.csv("/Users/lydia/Desktop/own.csv", header=TRUE)\
+  owners<-subset(owners, owners$Type=="LNG")\
+  \
+  names(owners) \
+  owners<-owners[c(4,5,7,8,10,11,13,14,16,17,19,20,22,23,25,26,28,29,31,32,34,35,37)]\
+  owners<-owners[c(1,2,3,4,6,8,10,12,14,16,18,20,22,5,7,9,11,13,15,17,19,21,23)]\
+\
+  #converting from factor to numeric\
+  #names(owners)  \
+  #nrow(owners)\
+  #options(digits=2)\
+  #owners$mtpa <- as.character(owners$mtpa)\
+  #owners$mtpa<-as.numeric(owners$mtpa)\
+  #class(owners$mtpa)\
+\
+  owners <- subset(owners, owners$mtpa>0) \
+  owners[is.na(owners)] <- ""\
+  \
+  owners10<-subset(owners, owners$Owner10!="" & owners$Percent10=="")\
+  owners10[ , 14:23]<- 1/10\
+  owners10[, 14:23] <- sapply(owners10[, 14:23],as.numeric)\
+\
+  owners9<-subset(owners, owners$Owner9!="" & owners$Percent9=="" & owners$Owner10=="")\
+  owners9[ , 14:22]<- 1/9\
+  owners9[, 14:23] <- sapply(owners9[, 14:23],as.numeric)\
+\
+  owners8<-subset(owners, owners$Owner8!="" & owners$Percent8=="" & owners$Owner9=="")\
+  owners8[ , 14:21]<- 1/8\
+  owners8[, 14:23] <- sapply(owners8[, 14:23],as.numeric)\
+\
+  owners7<-subset(owners, owners$Owner7!="" & owners$Percent7=="" & owners$Owner8=="")\
+  owners7[ , 14:20]<- 1/7\
+  owners7[, 14:23] <- sapply(owners7[, 14:23],as.numeric)\
+\
+  owners6<-subset(owners, owners$Owner6!="" & owners$Percent6=="" & owners$Owner7=="")\
+  owners6[ , 14:19]<- 1/6\
+  owners6[, 14:23] <- sapply(owners6[, 14:23],as.numeric)\
+\
+  owners5<-subset(owners, owners$Owner5!="" & owners$Percent5=="" & owners$Owner6=="")\
+  owners5[ , 14:18]<- 1/5\
+  owners5[, 14:23] <- sapply(owners5[, 14:23],as.numeric)\
+\
+  owners4<-subset(owners, owners$Owner4!="" & owners$Percent4=="" & owners$Owner5=="")\
+  owners4[ , 14:17]<- 1/4\
+  owners4[, 14:23] <- sapply(owners4[, 14:23],as.numeric)\
+\
+  owners3<-subset(owners, owners$Owner3!="" & owners$Percent3=="" & owners$Owner4=="")\
+  owners3[ , 14:16]<- 1/3\
+  owners3[, 14:23] <- sapply(owners3[, 14:23],as.numeric)\
+\
+  owners2<-subset(owners, owners$Owner2!="" & owners$Percent2=="" & owners$Owner3=="")\
+  owners2[ , 14:15]<- 1/2\
+  owners2[, 14:23] <- sapply(owners2[, 14:23],as.numeric)\
+\
+  owners1<-subset(owners, owners$Owner1!="" & owners$Percent1=="" & owners$Owner2=="")\
+  owners1[ , 14]<- 1/1\
+  owners1[, 14:23] <- sapply(owners1[, 14:23],as.numeric)\
+\
+  ownersall <- rbind (owners1,owners2,owners3,owners4,owners5,owners6,owners7,owners8,owners9,owners10)\
+  #ownersall[, 14:23] <- sapply(ownersall[, 14:23],as.numeric)\
+\
+  new10<-subset(owners, owners$Owner10!="" & owners$Percent10!="")\
+  new9<-subset(owners, owners$Owner9!="" & owners$Percent9!="" & owners$Owner10=="")\
+  new8<-subset(owners, owners$Owner8!="" & owners$Percent8!="" & owners$Owner9=="")\
+  new7<-subset(owners, owners$Owner7!="" & owners$Percent7!="" & owners$Owner8=="")\
+  new6<-subset(owners, owners$Owner6!="" & owners$Percent6!="" & owners$Owner7=="")\
+  new5<-subset(owners, owners$Owner5!="" & owners$Percent5!="" & owners$Owner6=="")\
+  new4<-subset(owners, owners$Owner4!="" & owners$Percent4!="" & owners$Owner5=="")\
+  new3<-subset(owners, owners$Owner3!="" & owners$Percent3!="" & owners$Owner4=="")\
+  new2<-subset(owners, owners$Owner2!="" & owners$Percent2!="" & owners$Owner3=="")\
+  new1<-subset(owners, owners$Owner1!="" & owners$Percent1!="" & owners$Owner2=="")\
+  ownersall2 <- rbind (new1,new2,new3,new4,new5,new6,new7,new8,new9,new10)\
+  ownersall2[, 14:23] <- sapply(ownersall2[, 14:23],as.numeric)\
+\
+  ownersall <- rbind(ownersall, ownersall2) \
+\
+  per1 <- ownersall[c(1,2,3,4,14)]\
+  names(per1)[4]<-"Owner"\
+  names(per1)[5]<-"Percent"\
+  per2 <- ownersall[c(1,2,3,5,15)]\
+  names(per2)[4]<-"Owner"\
+  names(per2)[5]<-"Percent"\
+  per3 <- ownersall[c(1,2,3,6,16)]\
+  names(per3)[4]<-"Owner"\
+  names(per3)[5]<-"Percent"\
+  per4 <- ownersall[c(1,2,3,7,17)]\
+  names(per4)[4]<-"Owner"\
+  names(per4)[5]<-"Percent"\
+  per5 <- ownersall[c(1,2,3,8,18)]\
+  names(per5)[4]<-"Owner"\
+  names(per5)[5]<-"Percent"\
+  per6 <- ownersall[c(1,2,3,9,19)]\
+  names(per6)[4]<-"Owner"\
+  names(per6)[5]<-"Percent"\
+  per7 <- ownersall[c(1,2,3,10,20)]\
+  names(per7)[4]<-"Owner"\
+  names(per7)[5]<-"Percent"\
+  per8 <- ownersall[c(1,2,3,11,21)]\
+  names(per8)[4]<-"Owner"\
+  names(per8)[5]<-"Percent"\
+  per9 <- ownersall[c(1,2,3,12,22)]\
+  names(per9)[4]<-"Owner"\
+  names(per9)[5]<-"Percent"\
+  per10 <- ownersall[c(1,2,3,13,23)]\
+  names(per10)[4]<-"Owner"\
+  names(per10)[5]<-"Percent"\
+\
+  perall <- rbind (per1,per2,per3,per4,per5,per6,per7,per8,per9,per10)\
+\
+  perall$PropCap <- perall$Percent*perall$mtpa\
+\
+  library(reshape2)\
+\
+  perall2 <- dcast(perall, Owner ~ Status, value.var = "PropCap", fun.aggregate = sum)\
+  write.csv(perall2,'/Users/lydia/Desktop/LNG Terminal Capacity by Owner.csv')\
+\
+  import <- subset(perall, Facility=="Import")\
+  import <- dcast(import, Owner ~ Status, value.var = "PropCap", fun.aggregate = sum)\
+  write.csv(import,'/Users/lydia/Desktop/LNG Import Terminal Capacity by Owner.csv')\
+\
+  export <- subset(perall, Facility=="Export")\
+  export <- dcast(export, Owner ~ Status, value.var = "PropCap", fun.aggregate = sum)\
+  write.csv(export,'/Users/lydia/Desktop/LNG Export Terminal Capacity by Owner.csv')}

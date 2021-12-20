@@ -1,0 +1,26 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #Capacity of import/export by year 1980-2018, operating only\
+\
+  term<-read.csv("terminals.csv", header=TRUE)\
+  term<- term[ which(term$Type=="LNG"), ]\
+  #term<- term[ which(term$Facility=="Import"), ]\
+  names(term)\
+  term$CurrentCapacity1 <- sapply(term$CurrentCapacity1, as.character)\
+  term$CurrentCapacity1 [is.na(term$CurrentCapacity1)] <- ""\
+  term <- subset(term, term$CurrentCapacity1!="")\
+  term$CurrentCapacity1 <- gsub(",","",term$CurrentCapacity1)\
+\
+  term$CurrentCapacity1 <- as.numeric(term$CurrentCapacity1)\
+  cap <- term[ which(term$StartYear1>=1980 & term$StartYear1<=2018), ]\
+  cap <- cap[ which(cap$Status=="Operating"), ]\
+  aggyear <- aggregate(CurrentCapacity1 ~ StartYear1, data = cap, sum)\
+  #write.csv(aggyear,'aggyear.csv')\
+\
+\
+}

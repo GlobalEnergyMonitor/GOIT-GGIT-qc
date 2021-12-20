@@ -1,27 +1,13 @@
-For Hungary-Slovenia-Italy Interconnector Gas Pipeline (P1340):
-Start country (spreadsheet): Hungary
-End country (spreadsheet): Italy
-However, found the end point in EEZ of Slovenia, at: 46.1899043, 14.4935662; minimum distance: 89.0.
-Warning, this pipeline route has separate segments; may be branching or not in order.
+-29.008868820089837, 141.0034524031398
 
->>> map looks correct but there's a semicolon in the coordinates; is that necessary?
-NEEDS TO BE FIXED; currently it's likely overcounting the pipeline length...
+-34.045374242355244, 141.00673545602436
 
+-36.08415344486302, 144.96785666945394
 
-Liza Field
-https://www.google.com/search?q=liza+oil+gas+field&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiorZXNgZLzAhVWDzQIHc2VBNkQ_AUoAnoECAEQBA&biw=1389&bih=707&dpr=2#imgrc=hYzewLQ2VCG6WM
+-35.08985088119096, 150.8309808079802
 
-needs more precise lat/lon points for Liza field
+-29.003900347082688, 148.9621123235375
 
+-29.194585689203418, 151.36049516724646
 
-
-
-27.4731295, 52.5938054
-27.345579243339635, 52.52551591185319
-26.365151, 53.115028
-25.70398634965414, 54.5832027954729
-26.629085880313433, 56.49078093430512
-25.025061879530625, 57.32393303575609
-24.439262255204696, 61.8406407595634
-24.98679649788329, 62.331184579816004
-25.108946194334507, 62.327958984438624x
+-32.21358000

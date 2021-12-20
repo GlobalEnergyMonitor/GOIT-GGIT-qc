@@ -1,0 +1,263 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #Capacity by country, prorated\
+\
+  pipe<-read.csv("pipe.csv", header=TRUE)\
+  library(reshape2)\
+  #pipe<-subset(pipe, pipe$Fuel=="Gas")\
+  pipe$CurrentBOE.d[is.na(pipe$CurrentBOE.d)] <- ""\
+  pipe$PropBOE.d[is.na(pipe$PropBOE.d)] <- ""\
+  library(tidyr)\
+  pipe <- separate(pipe, 5, c("C1", "C2","C3", "C4","C5", "C6","C7", "C8","C9", "C10","C11", "C12","C13", "C14"), sep = ",")\
+  pipe$C1 <- sapply(pipe$C1, as.character)\
+  pipe$C1[is.na(pipe$C1)] <- " "\
+  pipe$C2 <- sapply(pipe$C2, as.character)\
+  pipe$C2 <- trimws(pipe$C2, which = c("left"))\
+  pipe$C2[is.na(pipe$C2)] <- " "\
+  pipe$C3 <- sapply(pipe$C3, as.character)\
+  pipe$C3 <- trimws(pipe$C3, which = c("left"))\
+  pipe$C3[is.na(pipe$C3)] <- " "\
+  pipe$C4 <- sapply(pipe$C4, as.character)\
+  pipe$C4 <- trimws(pipe$C4, which = c("left"))\
+  pipe$C4[is.na(pipe$C4)] <- " "\
+  pipe$C5 <- sapply(pipe$C5, as.character)\
+  pipe$C5 <- trimws(pipe$C5, which = c("left"))\
+  pipe$C5[is.na(pipe$C5)] <- " "\
+  pipe$C6 <- sapply(pipe$C6, as.character)\
+  pipe$C6 <- trimws(pipe$C6, which = c("left"))\
+  pipe$C6[is.na(pipe$C6)] <- " "\
+  pipe$C7 <- sapply(pipe$C7, as.character)\
+  pipe$C7 <- trimws(pipe$C7, which = c("left"))\
+  pipe$C7[is.na(pipe$C7)] <- " "\
+  pipe$C8 <- sapply(pipe$C8, as.character)\
+  pipe$C8 <- trimws(pipe$C8, which = c("left"))\
+  pipe$C8[is.na(pipe$C8)] <- " "\
+  pipe$C9 <- sapply(pipe$C9, as.character)\
+  pipe$C9 <- trimws(pipe$C9, which = c("left"))\
+  pipe$C9[is.na(pipe$C9)] <- " "\
+  pipe$C10 <- sapply(pipe$C10, as.character)\
+  pipe$C10 <- trimws(pipe$C10, which = c("left"))\
+  pipe$C10[is.na(pipe$C10)] <- " "\
+  pipe$C11 <- sapply(pipe$C11, as.character)\
+  pipe$C11 <- trimws(pipe$C11, which = c("left"))\
+  pipe$C11[is.na(pipe$C11)] <- " "\
+\
+  pipe<-pipe[c(5,6,7,8,9,10,11,12,13,14,15,16,17,18,24,33,34)]\
+\
+  pipe1 <- subset(pipe, pipe$CurrentBOE.d!="" & pipe$PropBOE.d=="") #operating w/out expansion, retired, mothballed\
+  pipe1$CurrentBOE.d <- as.numeric(pipe1$CurrentBOE.d)\
+  pipe1$PropBOE.d <- as.numeric(pipe1$PropBOE.d)\
+  pipe2 <- subset(pipe, pipe$PropBOE.d!="" & pipe$CurrentBOE.d=="") #proposed, construction, cancelled, shelved\
+  pipe2$CurrentBOE.d <- as.numeric(pipe2$CurrentBOE.d)\
+  pipe2$PropBOE.d <- as.numeric(pipe2$PropBOE.d)\
+  pipe3 <- subset(pipe, pipe$CurrentBOE.d!="" & pipe$PropBOE.d!="") #operating with expansion planned \
+  pipe3$CurrentBOE.d <- as.numeric(pipe3$CurrentBOE.d)\
+  pipe3$PropBOE.d <- as.numeric(pipe3$PropBOE.d)\
+\
+#operating, mothballed, retired\
+  pipe1C1 <- pipe1[ which(pipe1$C1!=" " & pipe1$C2==" "), ]\
+  pipe1C2 <- pipe1[ which(pipe1$C2!=" " & pipe1$C3==" "), ]\
+  pipe1C3 <- pipe1[ which(pipe1$C3!=" " & pipe1$C4==" "), ]\
+  pipe1C4 <- pipe1[ which(pipe1$C4!=" " & pipe1$C5==" "), ]\
+  pipe1C5 <- pipe1[ which(pipe1$C5!=" " & pipe1$C6==" "), ]\
+  pipe1C6 <- pipe1[ which(pipe1$C6!=" " & pipe1$C7==" "), ]\
+  pipe1C7 <- pipe1[ which(pipe1$C7!=" " & pipe1$C8==" "), ]\
+  pipe1C8 <- pipe1[ which(pipe1$C8!=" " & pipe1$C9==" "), ]\
+  pipe1C9 <- pipe1[ which(pipe1$C9!=" " & pipe1$C10==" "), ]\
+  pipe1C10 <- pipe1[ which(pipe1$C10!=" " & pipe1$C11==" "), ]\
+  pipe1C11 <- pipe1[ which(pipe1$C11!=" "), ]\
+\
+  t1 = melt(pipe1C1, measure.vars = c("C1"), variable.name="Country")\
+  t1$proboe <- (t1$CurrentBOE.d)\
+  t1<-t1[c(14,18,19)]\
+  t2 = melt(pipe1C2, measure.vars = c("C1", "C2"), variable.name="Country")\
+  t2$proboe <- (t2$CurrentBOE.d)/2\
+  t2<-t2[c(13,17,18)]\
+  t3 = melt(pipe1C3, measure.vars = c("C1", "C2" ,"C3"), variable.name="Country")\
+  t3$proboe <- (t3$CurrentBOE.d)/3\
+  t3<-t3[c(12,16,17)]\
+  t4 = melt(pipe1C4, measure.vars = c("C1", "C2" ,"C3", "C4"), variable.name="Country")\
+  t4$proboe <- (t4$CurrentBOE.d)/4\
+  t4<-t4[c(11,15,16)]\
+  t5 = melt(pipe1C5, measure.vars = c("C1", "C2" ,"C3", "C4", "C5"), variable.name="Country")\
+  t5$proboe <- (t5$CurrentBOE.d)/5\
+  t5<-t5[c(10,14,15)]\
+  t6 = melt(pipe1C6, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6"), variable.name="Country")\
+  t6$proboe <- (t6$CurrentBOE.d)/6\
+  t6<-t6[c(9,13,14)]\
+  t7 = melt(pipe1C7, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7"), variable.name="Country")\
+  t7$proboe <- (t7$CurrentBOE.d)/7\
+  t7<-t7[c(8,12,13)]\
+  t8 = melt(pipe1C8, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8"), variable.name="Country")\
+  t8$proboe <- (t8$CurrentBOE.d)/8\
+  t8<-t8[c(7,11,12)]\
+  t9 = melt(pipe1C9, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9"), variable.name="Country")\
+  t9$proboe <- (t9$CurrentBOE.d)/9\
+  t9<-t9[c(6,10,11)]\
+  t10 = melt(pipe1C10, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10"), variable.name="Country")\
+  t10$proboe <- (t10$CurrentBOE.d)/10\
+  t10<-t10[c(5,9,10)]\
+  t11 = melt(pipe1C11, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"), variable.name="Country")\
+  t11$proboe <- (t11$CurrentBOE.d)/11\
+  t11<-t11[c(4,8,9)]\
+  short<-rbind(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11)\
+\
+#proposed, construction, cancelled, shelved\
+  pipe2C1 <- pipe2[ which(pipe2$C1!=" " & pipe2$C2==" "), ]\
+  pipe2C2 <- pipe2[ which(pipe2$C2!=" " & pipe2$C3==" "), ]\
+  pipe2C3 <- pipe2[ which(pipe2$C3!=" " & pipe2$C4==" "), ]\
+  pipe2C4 <- pipe2[ which(pipe2$C4!=" " & pipe2$C5==" "), ]\
+  pipe2C5 <- pipe2[ which(pipe2$C5!=" " & pipe2$C6==" "), ]\
+  pipe2C6 <- pipe2[ which(pipe2$C6!=" " & pipe2$C7==" "), ]\
+  pipe2C7 <- pipe2[ which(pipe2$C7!=" " & pipe2$C8==" "), ]\
+  pipe2C8 <- pipe2[ which(pipe2$C8!=" " & pipe2$C9==" "), ]\
+  pipe2C9 <- pipe2[ which(pipe2$C9!=" " & pipe2$C10==" "), ]\
+  pipe2C10 <- pipe2[ which(pipe2$C10!=" " & pipe2$C11==" "), ]\
+  pipe2C11 <- pipe2[ which(pipe2$C11!=" "), ]\
+\
+  library(reshape2) \
+  t1 = melt(pipe2C1, measure.vars = c("C1"), variable.name="Country")\
+  t1$proboe <- (t1$PropBOE.d)\
+  t1<-t1[c(14,18,19)]\
+  t2 = melt(pipe2C2, measure.vars = c("C1", "C2"), variable.name="Country")\
+  t2$proboe <- (t2$PropBOE.d)/2\
+  t2<-t2[c(13,17,18)]\
+  t3 = melt(pipe2C3, measure.vars = c("C1", "C2" ,"C3"), variable.name="Country")\
+  t3$proboe <- (t3$PropBOE.d)/3\
+  t3<-t3[c(12,16,17)]\
+  t4 = melt(pipe2C4, measure.vars = c("C1", "C2" ,"C3", "C4"), variable.name="Country")\
+  t4$proboe <- (t4$PropBOE.d)/4\
+  t4<-t4[c(11,15,16)]\
+  t5 = melt(pipe2C5, measure.vars = c("C1", "C2" ,"C3", "C4", "C5"), variable.name="Country")\
+  t5$proboe <- (t5$PropBOE.d)/5\
+  t5<-t5[c(10,14,15)]\
+  t6 = melt(pipe2C6, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6"), variable.name="Country")\
+  t6$proboe <- (t6$PropBOE.d)/6\
+  t6<-t6[c(9,13,14)]\
+  t7 = melt(pipe2C7, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7"), variable.name="Country")\
+  t7$proboe <- (t7$PropBOE.d)/7\
+  t7<-t7[c(8,12,13)]\
+  t8 = melt(pipe2C8, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8"), variable.name="Country")\
+  t8$proboe <- (t8$PropBOE.d)/8\
+  t8<-t8[c(7,11,12)]\
+  t9 = melt(pipe2C9, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9"), variable.name="Country")\
+  t9$proboe <- (t9$PropBOE.d)/9\
+  t9<-t9[c(6,10,11)]\
+  t10 = melt(pipe2C10, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10"), variable.name="Country")\
+  t10$proboe <- (t10$PropBOE.d)/10\
+  t10<-t10[c(5,9,10)]\
+  t11 = melt(pipe2C11, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"), variable.name="Country")\
+  t11$proboe <- (t11$PropBOE.d)/11\
+  t11<-t11[c(4,8,9)]\
+  short2<-rbind(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11)\
+\
+#operating with a proposed extension\
+  pipe3$newBOE<-pipe3$PropBOE.d-pipe3$CurrentBOE.d\
+  pipe3$PropBOE.d=pipe3$newBOE\
+\
+  pipe3C1 <- pipe3[ which(pipe3$C1!=" " & pipe3$C2==" "), ]\
+  pipe3C2 <- pipe3[ which(pipe3$C2!=" " & pipe3$C3==" "), ]\
+  pipe3C3 <- pipe3[ which(pipe3$C3!=" " & pipe3$C4==" "), ]\
+  pipe3C4 <- pipe3[ which(pipe3$C4!=" " & pipe3$C5==" "), ]\
+  pipe3C5 <- pipe3[ which(pipe3$C5!=" " & pipe3$C6==" "), ]\
+  pipe3C6 <- pipe3[ which(pipe3$C6!=" " & pipe3$C7==" "), ]\
+  pipe3C7 <- pipe3[ which(pipe3$C7!=" " & pipe3$C8==" "), ]\
+  pipe3C8 <- pipe3[ which(pipe3$C8!=" " & pipe3$C9==" "), ]\
+  pipe3C9 <- pipe3[ which(pipe3$C9!=" " & pipe3$C10==" "), ]\
+  pipe3C10 <- pipe3[ which(pipe3$C10!=" " & pipe3$C11==" "), ]\
+  pipe3C11 <- pipe3[ which(pipe3$C11!=" "), ]\
+\
+  t1 = melt(pipe3C1, measure.vars = c("C1"), variable.name="Country")\
+  t1$proboe <- (t1$PropBOE.d)\
+  t1<-t1[c(14,19,20)]\
+  t2 = melt(pipe3C2, measure.vars = c("C1", "C2"), variable.name="Country")\
+  t2$proboe <- (t2$PropBOE.d)/2\
+  t2<-t2[c(13,18,19)]\
+  t3 = melt(pipe3C3, measure.vars = c("C1", "C2" ,"C3"), variable.name="Country")\
+  t3$proboe <- (t3$PropBOE.d)/3\
+  t3<-t3[c(12,17,18)]\
+  t4 = melt(pipe3C4, measure.vars = c("C1", "C2" ,"C3", "C4"), variable.name="Country")\
+  t4$proboe <- (t4$PropBOE.d)/4\
+  t4<-t4[c(11,16,17)]\
+  t5 = melt(pipe3C5, measure.vars = c("C1", "C2" ,"C3", "C4", "C5"), variable.name="Country")\
+  t5$proboe <- (t5$PropBOE.d)/5\
+  t5<-t5[c(10,15,16)]\
+  t6 = melt(pipe3C6, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6"), variable.name="Country")\
+  t6$proboe <- (t6$PropBOE.d)/6\
+  t6<-t6[c(9,14,15)]\
+  t7 = melt(pipe3C7, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7"), variable.name="Country")\
+  t7$proboe <- (t7$PropBOE.d)/7\
+  t7<-t7[c(8,13,14)]\
+  t8 = melt(pipe3C8, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8"), variable.name="Country")\
+  t8$proboe <- (t8$PropBOE.d)/8\
+  t8<-t8[c(7,12,13)]\
+  t9 = melt(pipe3C9, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9"), variable.name="Country")\
+  t9$proboe <- (t9$PropBOE.d)/9\
+  t9<-t9[c(6,11,12)]\
+  t10 = melt(pipe3C10, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10"), variable.name="Country")\
+  t10$proboe <- (t10$PropBOE.d)/10\
+  t10<-t10[c(5,10,11)]\
+  t11 = melt(pipe3C11, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"), variable.name="Country")\
+  t11$proboe <- (t11$PropBOE.d)/11\
+  t11<-t11[c(4,9,10)]\
+  short3<-rbind(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11)\
+  short3$Status="Proposed"\
+\
+  pipe3C1 <- pipe3[ which(pipe3$C1!=" " & pipe3$C2==" "), ]\
+  pipe3C2 <- pipe3[ which(pipe3$C2!=" " & pipe3$C3==" "), ]\
+  pipe3C3 <- pipe3[ which(pipe3$C3!=" " & pipe3$C4==" "), ]\
+  pipe3C4 <- pipe3[ which(pipe3$C4!=" " & pipe3$C5==" "), ]\
+  pipe3C5 <- pipe3[ which(pipe3$C5!=" " & pipe3$C6==" "), ]\
+  pipe3C6 <- pipe3[ which(pipe3$C6!=" " & pipe3$C7==" "), ]\
+  pipe3C7 <- pipe3[ which(pipe3$C7!=" " & pipe3$C8==" "), ]\
+  pipe3C8 <- pipe3[ which(pipe3$C8!=" " & pipe3$C9==" "), ]\
+  pipe3C9 <- pipe3[ which(pipe3$C9!=" " & pipe3$C10==" "), ]\
+  pipe3C10 <- pipe3[ which(pipe3$C10!=" " & pipe3$C11==" "), ]\
+  pipe3C11 <- pipe3[ which(pipe3$C11!=" "), ]\
+\
+  library(reshape2) \
+  t1 = melt(pipe3C1, measure.vars = c("C1"), variable.name="Country")\
+  t1$proboe <- (t1$CurrentBOE.d)\
+  t1<-t1[c(14,19,20)]\
+  t2 = melt(pipe3C2, measure.vars = c("C1", "C2"), variable.name="Country")\
+  t2$proboe <- (t2$CurrentBOE.d)/2\
+  t2<-t2[c(13,18,19)]\
+  t3 = melt(pipe3C3, measure.vars = c("C1", "C2" ,"C3"), variable.name="Country")\
+  t3$proboe <- (t3$CurrentBOE.d)/3\
+  t3<-t3[c(12,17,18)]\
+  t4 = melt(pipe3C4, measure.vars = c("C1", "C2" ,"C3", "C4"), variable.name="Country")\
+  t4$proboe <- (t4$CurrentBOE.d)/4\
+  t4<-t4[c(11,16,17)]\
+  t5 = melt(pipe3C5, measure.vars = c("C1", "C2" ,"C3", "C4", "C5"), variable.name="Country")\
+  t5$proboe <- (t5$CurrentBOE.d)/5\
+  t5<-t5[c(10,15,16)]\
+  t6 = melt(pipe3C6, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6"), variable.name="Country")\
+  t6$proboe <- (t6$CurrentBOE.d)/6\
+  t6<-t6[c(9,14,15)]\
+  t7 = melt(pipe3C7, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7"), variable.name="Country")\
+  t7$proboe <- (t7$CurrentBOE.d)/7\
+  t7<-t7[c(8,13,14)]\
+  t8 = melt(pipe3C8, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8"), variable.name="Country")\
+  t8$proboe <- (t8$CurrentBOE.d)/8\
+  t8<-t8[c(7,12,13)]\
+  t9 = melt(pipe3C9, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9"), variable.name="Country")\
+  t9$proboe <- (t9$CurrentBOE.d)/9\
+  t9<-t9[c(6,11,12)]\
+  t10 = melt(pipe3C10, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10"), variable.name="Country")\
+  t10$proboe <- (t10$CurrentBOE.d)/10\
+  t10<-t10[c(5,10,11)]\
+  t11 = melt(pipe3C11, measure.vars = c("C1", "C2" ,"C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"), variable.name="Country")\
+  t11$proboe <- (t11$CurrentBOE.d)/11\
+  t11<-t11[c(4,9,10)]\
+  short4<-rbind(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11)\
+\
+  combo<-rbind(short,short2,short3,short4)\
+  library(reshape2)\
+  combo <- dcast(combo, value ~ Status, value.var = "proboe", fun.aggregate = sum)\
+  write.csv(combo,'combo.csv')\
+}

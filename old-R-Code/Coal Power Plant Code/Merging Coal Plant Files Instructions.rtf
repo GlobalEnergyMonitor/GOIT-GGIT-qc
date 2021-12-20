@@ -1,0 +1,30 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red251\green2\blue7;\red26\green26\blue26;\red255\green255\blue255;
+\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c14913\c0;\cssrgb\c13333\c13333\c13333;\cssrgb\c100000\c100000\c100000;
+\cssrgb\c0\c0\c0;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\})}{\leveltext\leveltemplateid1\'02\'00);}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f0\fs24 \cf0 {\listtext	1)	}library(readxl) \cf2 #open the \'93readxl\'94 library in R to read-in the coal plant files\cf0   \
+{\listtext	2)	}africa<-read_excel("Africa coal plants.xlsx") \cf2 #read-in the coal plant excel file, assign a dataset name\cf0 \
+{\listtext	3)	}africa$"Chinese Name" <- NA \cf2 #identify missing variables (all datasets must have the same variables, in the same order, and the same names) and assign missing variables \'93NA\'94 values. These will export in the final file as blank cells.\cf0 \
+{\listtext	5)	}africa <- africa[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year""\cf3 \cb4 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf3 \cb4 \expnd0\expndtw0\kerning0
+,\cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf3 \cb4 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf3 \cb4 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf3 \cb4 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf3 \cb4 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf3 \cb4 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")] \cf2 #order the variables in a standardized way\cf0 \
+{\listtext	6)	}names(africa) \cf2 #check success by assessing number of columns (should be 36 for all datasets) \cf0 \
+{\listtext	7)	}nrow(africa) \cf2 #check success by assessing number or rows (should be number of rows from original file)\cf0 \
+\pard\tx220\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li720\fi-720\pardirnatural\partightenfactor0
+\ls1\ilvl0\cf5 {\listtext	8)	}repeat steps 2-7 for every dataset\cf2  \cf0 \
+{\listtext	9)	}total<-rbind(africa,andhra,anhui,australia,bangladesh,bihar,cambodia,canada,chhattisgarh,chongqing,europepre,europe,fujian,gansu,guangdong,guangxi,guizhou,gujarat,haryana,hebei,heilongjiang,henan,hubei,hunan,indonesia,innermong,japan,jharkhand,jiangsu,jiangxi,jilin,karnataka,latinam,liaoning,madhya,maharashtra,malaysia,mideast,mongolia,ningxia,northkorea,odisha,otherchina,otherindian,pakistan,philippines,punjab,qinghai,rajasthan,russia,shaanxi,shandong,shanxi,sichuan,southkorea,srilanka,taiwan,tamilnadu,thailand,turkey,unitedstates,uttar,vietnam,westbengal,xinjiang,zhejiang) \cf2 #merge all datasets into one dataset\cf0 \
+{\listtext	10)	}library(writexl) \cf2 #open the \'93writexl\'94 library in R to export the final merged coal plants file\cf0  \
+{\listtext	11)	}write_xlsx(total,"merged.xlsx") \cf2 #export the file\
+}
