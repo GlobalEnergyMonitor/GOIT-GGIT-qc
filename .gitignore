@@ -3,6 +3,7 @@
 *.xlsx
 *.xls
 *.geojson
+*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
