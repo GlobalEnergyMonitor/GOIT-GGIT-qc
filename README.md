@@ -1,1 +1,1 @@
-# QC script for Global Oil and Gas Infrastructure Trackers (GOGIT)
+# QC scripts for GOIT (Global Oil Infrastructure Tracker) and GGIT (Global Gas Infrastructure Tracker)
