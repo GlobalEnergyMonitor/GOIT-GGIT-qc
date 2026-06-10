@@ -31,7 +31,7 @@ and `""` placeholders are then replaced with NaN.
 | `FUEL_TYPE` | `Fuel` values included |
 | --- | --- |
 | `Gas` | `Gas`, `Gas and Hydrogen` (collapsed to `Gas`) |
-| `Oil` | `Oil`; `Oil, NGL`; `Oil, NGL, naphtha`; `Oil products (only)`; `Oil, oil products`; `Oil, condensate`; `CO2` |
+| `Oil` | `Oil`; `Oil, NGL`; `Oil, NGL, naphtha`; `Oil products (only)`; `Oil, oil products`; `Oil, condensate` |
 | `NGL` | `NGL`; `NGL, oil products`; `Oil, NGL`; `Oil, NGL, naphtha`; `LPG`; `Naphtha (only)`; `Naphtha, oil products`; `Condensate`; `Condensate/NGL` |
 
 `Oil, NGL` and `Oil, NGL, naphtha` intentionally appear in **both** the Oil and NGL buckets:
@@ -153,12 +153,3 @@ All live in the top-of-notebook config block or the cost cell:
 | `MIN_REGION_DATAPOINTS` | `5` | Region cost mean falls back to global below this |
 | `MIN_SUBREGION_DATAPOINTS` | `3` | Subregion cost mean falls back to region below this |
 | `qlo_val` / `qhi_val` (inline) | `0.025` / `0.975` | Outlier trim window for `CostUSDPerKm` |
-
-## Provenance
-
-The cost-estimate methodology is ported from
-`../2025-q4-gas-pipelines/gas-pipelines-2025-research-calculations-for-costs.ipynb`
-(the q4-2025 GGIT release). The v2 notebook ports the calculation into a single
-config-driven script and adds the sparse-sample fallbacks; the underlying formulas
-(quantile trim, subregion-mean × known-length, known-row override) are unchanged from
-the reference.
