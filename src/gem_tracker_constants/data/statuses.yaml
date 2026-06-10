@@ -1,0 +1,58 @@
+# gem-tracker-constants — status orderings
+#
+# GEM trackers store project lifecycle as a `Status` column. Pipeline trackers
+# (GOIT, GGIT) use lowercase values; LNG terminal tracker uses Title case
+# values. Both are captured here so downstream code can stop guessing.
+#
+# `excel` is the column ordering used in summary-sheet output, which inserts an
+# "in development" rollup column right after `construction` (a sum of
+# proposed + construction). The rollup column name is `in_dev_col`.
+#
+# Invariants (enforced by tests/test_status_invariants.py):
+#   - excel == base[:2] + [in_dev_col] + base[2:]
+#     (the "in development" column lives immediately after construction)
+
+pipeline_in_dev_col: "in development (proposed + construction)"
+terminal_in_dev_col: "In Development (Proposed + Construction)"
+
+pipeline:
+  base:
+    - proposed
+    - construction
+    - shelved
+    - cancelled
+    - operating
+    - idle
+    - mothballed
+    - retired
+  excel:
+    - proposed
+    - construction
+    - in development (proposed + construction)
+    - shelved
+    - cancelled
+    - operating
+    - idle
+    - mothballed
+    - retired
+
+terminal:
+  base:
+    - Proposed
+    - Construction
+    - Shelved
+    - Cancelled
+    - Operating
+    - Idle
+    - Mothballed
+    - Retired
+  excel:
+    - Proposed
+    - Construction
+    - In Development (Proposed + Construction)
+    - Shelved
+    - Cancelled
+    - Operating
+    - Idle
+    - Mothballed
+    - Retired

@@ -1,0 +1,64 @@
+# gem-tracker-constants — fuel buckets
+#
+# Source of truth for the Fuel-column values used by GOIT (oil/NGL) and GGIT
+# (gas) pipeline trackers. Each bucket is the set of raw `Fuel` strings that
+# count as that fuel type for filtering/aggregation.
+#
+# Invariants (enforced by tests/test_fuel_invariants.py):
+#   1. `oil` and `ngl` intentionally overlap on the two shared multi-fuel
+#      strings 'Oil, NGL' and 'Oil, NGL, naphtha' — a single pipeline tagged
+#      with one of those values shows up in BOTH the oil and NGL aggregates.
+#   2. union(oil, ngl) == oil_ngl_combined, in any order.
+#   3. `gas` includes 'Gas and Hydrogen'; consumers running a gas-only
+#      analysis should collapse it via helpers.collapse_gas_and_hydrogen().
+#
+# When editing this file, update tests if you change an invariant on purpose;
+# otherwise the invariant tests will catch accidental drift.
+
+gas:
+  - Gas
+  - Gas and Hydrogen
+
+gas_hydrogen:
+  - Gas
+  - Hydrogen
+
+hydrogen:
+  - Hydrogen
+
+oil:
+  - Oil
+  - Oil, NGL
+  - Oil, NGL, naphtha
+  - Oil products (only)
+  - Oil, oil products
+  - Oil, condensate
+
+ngl:
+  - NGL
+  - NGL, oil products
+  - Oil, NGL
+  - Oil, NGL, naphtha
+  - LPG
+  - Naphtha (only)
+  - Naphtha, oil products
+  - Condensate
+  - Condensate/NGL
+
+# Combined oil+NGL list as used by the data-requests release pipeline
+# (GOIT-GGIT-data-requests/notebooks/convert-ggit-goit-to-tracker-release-downloads-CURRENT.ipynb,
+# `get_config('Oil-NGL')['fuel_options']`). Must equal union(oil, ngl).
+oil_ngl_combined:
+  - Oil
+  - NGL
+  - NGL, oil products
+  - LPG
+  - Oil, NGL
+  - Oil, NGL, naphtha
+  - Naphtha (only)
+  - Oil products (only)
+  - Naphtha, oil products
+  - Condensate
+  - Oil, oil products
+  - Condensate/NGL
+  - Oil, condensate
