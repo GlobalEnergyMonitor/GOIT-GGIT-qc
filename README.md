@@ -8,8 +8,8 @@ and [Global Gas Infrastructure Tracker (GGIT)](https://globalenergymonitor.org/p
 
 [`notebooks/convert-ggit-goit-to-tracker-release-downloads-CURRENT.ipynb`](notebooks/convert-ggit-goit-to-tracker-release-downloads-CURRENT.ipynb)
 exports pipeline (and optionally LNG terminal) data from the tracker Google
-Sheets to Excel / GeoJSON / GeoPackage, joining route geometries from the
-`goit-ggit-pipeline-routes` repo.
+Sheets to Excel / GeoJSON / GeoPackage / zipped Shapefile, joining route
+geometries from the `goit-ggit-pipeline-routes` repo.
 
 Configuration lives in the notebook's Configuration cell:
 
