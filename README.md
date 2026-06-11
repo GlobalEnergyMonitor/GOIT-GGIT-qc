@@ -52,13 +52,15 @@ For a new quarterly release, work through [RELEASE-CHECKLIST.md](RELEASE-CHECKLI
 copy it into the release folder and check items off so progress is visible.
 The high-level sequence:
 
-1. **Length estimation** — `scripts/estimate-length/estimate-length.ipynb`
-2. **Owner/parent attribution** — pick the relevant CURRENT notebook in `scripts/owner-parent-scripts/`:
+1. **Backend QC sweep** — check the tracker Google Sheet and `goit-ggit-pipeline-routes` for data errors before anything reads from them.
+2. **Length estimation** — `scripts/estimate-length/estimate-length.ipynb`
+3. **Owner/parent attribution** — pick the relevant CURRENT notebook in `scripts/owner-parent-scripts/`:
    - `GOIT-GGIT-owner-parent-importing-ownership-tracker-CURRENT.ipynb` (pipelines)
    - `GGIT-terminals-owner-parent-scripts-CURRENT.ipynb` (LNG terminals)
-3. **Summary sheets** — create a new `data-release-summary-sheets/YYYY-qN-<tracker>/` folder and copy the most recent prior release notebook as the starting point.
-4. **Release downloads** — export the download files (xlsx/geojson/gpkg/shp) with `scripts/data-file-creation/convert-ggit-goit-to-tracker-release-downloads.ipynb` (see that folder's README).
-5. **Release download QC** — run `scripts/data-release-qc/data-release-qc.py` against the download files (see that folder's README). Fix anything it flags and re-export before distribution.
+4. **Import + snapshot** — paste the length and owner/parent results back into the tracker sheet, then copy the sheet into the release's Google Drive folder and share it with the service account. The remaining steps read from that snapshot.
+5. **Release downloads** — export the download files (xlsx/geojson/gpkg/shp) with `scripts/data-file-creation/convert-ggit-goit-to-tracker-release-downloads.ipynb` (see that folder's README).
+6. **Release download QC** — run `scripts/data-release-qc/data-release-qc.py` against the download files (see that folder's README). Fix anything it flags at the source and re-export until clean.
+7. **Summary sheets** — create a new `data-release-summary-sheets/YYYY-qN-<tracker>/` folder, copy the most recent prior release notebook as the starting point, and run it against the snapshot.
 
 ## Conventions
 
