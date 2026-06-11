@@ -1,11 +1,18 @@
-# GOIT / GGIT QC
+# GOIT / GGIT data ops
 
-QC and data-release scripts for the Global Energy Monitor pipeline and LNG terminal trackers:
+Data-release production, QC, and admin scripts for the Global Energy Monitor
+pipeline and LNG terminal trackers:
 
 - **GOIT** — Global Oil Infrastructure Tracker (crude oil, refined products, NGL pipelines)
 - **GGIT** — Global Gas Infrastructure Tracker (gas pipelines + LNG terminals)
 
-Most scripts are Jupyter notebooks. Data files (`.xlsx`, `.csv`, `.geojson`, `.json`) are gitignored — keep them in their notebook's folder locally.
+This repo is the merge of the former `goit-ggit-qc` and
+`goit-ggit-data-requests` repos (June 2026); both histories are preserved.
+
+Most scripts are Jupyter notebooks. Data files (`.xlsx`, `.csv`, `.geojson`,
+`.json`) are gitignored — keep them in their notebook's folder locally. The
+exception is `notebooks/release-downloads/DATA-FILES/`, where `.gpkg`/`.zip`
+release artifacts are committed deliberately (see that folder's README).
 
 ## Folder map
 
@@ -26,6 +33,8 @@ notebooks/
 │   ├── 2025-q4-gas-pipelines/
 │   ├── 2026-q2-oil-pipelines/
 │   └── _archive/                     2022–2023 releases (pre-folder-per-release convention)
+├── release-downloads/                export tracker sheets to release download files
+│   └── DATA-FILES/                   release artifacts (.gpkg/.zip committed)
 ├── release-download-qc/              pre-distribution checks for release download files
 ├── researcher-requests-scripts/      researcher allocation calculations, by year
 ├── terminals-qc/                     ad-hoc LNG terminal QC
@@ -45,10 +54,12 @@ For a new quarterly release:
    - `GOIT-GGIT-owner-parent-importing-ownership-tracker-CURRENT.ipynb` (pipelines)
    - `GGIT-terminals-owner-parent-scripts-CURRENT.ipynb` (LNG terminals)
 3. **Summary sheets** — create a new `data-release-summary-sheets/YYYY-qN-<tracker>/` folder and copy the most recent prior release notebook as the starting point.
-4. **Release download QC** — after `goit-ggit-data-requests` produces the download files, run `notebooks/release-download-qc/qc-release-downloads.py` against them (see that folder's README). Fix anything it flags and re-export before distribution.
+4. **Release downloads** — export the download files (xlsx/geojson/gpkg/shp) with `notebooks/release-downloads/convert-ggit-goit-to-tracker-release-downloads-CURRENT.ipynb` (see that folder's README).
+5. **Release download QC** — run `notebooks/release-download-qc/qc-release-downloads.py` against the download files (see that folder's README). Fix anything it flags and re-export before distribution.
 
 ## Conventions
 
 - One folder per release under `data-release-summary-sheets/`, named `YYYY-qN-<tracker>` (e.g. `2026-q2-oil-pipelines`).
 - Active "latest" scripts have `CURRENT` in the filename.
 - Deprecated work goes under `_archive/` (or a per-folder `_archive/` for topic-specific archives).
+- Fuel buckets and status lists come from [gem-tracker-constants](https://github.com/bairdlangenbrunner/gem-tracker-constants) — the release downloads and QC summary sheets filter on the same buckets, so release totals match QC totals.

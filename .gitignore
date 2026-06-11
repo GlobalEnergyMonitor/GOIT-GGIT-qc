@@ -151,3 +151,14 @@ ui-tests/.pnp.*
 
 # generated html
 notebook/templates/*.html
+
+# environments
+.env
+.venv/
+venv/
+
+# backups & scratch files
+*.bak
+
+# claude code local settings
+.claude/settings.local.json
