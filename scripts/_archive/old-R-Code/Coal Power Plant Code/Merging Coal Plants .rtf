@@ -1,0 +1,1089 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c13333\c13333\c13333;\cssrgb\c100000\c100000\c100000;}
+\margl1440\margr1440\vieww11040\viewh12580\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #read in individual files and select and standardize variables  \
+\
+library(readxl)\
+\
+africa<-read_excel("Africa coal plants.xlsx")\
+africa$"Chinese Name" <- NA\
+africa$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+africa$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+africa <- africa[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(africa)\
+nrow(africa)\
+\
+andhra<-read_excel("Andhra Pradesh and Telangana proposed plants.xlsx")\
+andhra$"Chinese Name" <- NA\
+andhra$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+andhra$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+andhra <- andhra[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(andhra)\
+nrow(andhra)\
+\
+anhui<-read_excel("Anhui proposed coal plants.xlsx")\
+anhui$"Chinese Name" <- NA\
+anhui$"Status (detail)" <- NA\
+anhui$"Permits" <- NA\
+anhui$"Sort code" <- NA\
+anhui <- anhui[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(anhui)\
+nrow(anhui)\
+\
+australia<-read_excel("Australia and New Zealand proposed coal plants.xlsx")\
+australia$"Chinese Name" <- NA\
+australia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+australia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+australia <- australia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(australia)\
+nrow(australia)\
+\
+bangladesh<-read_excel("Bangladesh proposed coal plants.xlsx")\
+bangladesh$"Chinese Name" <- NA\
+bangladesh$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+bangladesh$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+bangladesh <- bangladesh[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(bangladesh)\
+nrow(bangladesh)\
+\
+bihar<-read_excel("Bihar proposed plants.xlsx")\
+bihar$"Chinese Name" <- NA\
+bihar$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+bihar$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+bihar <- bihar[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(bihar)\
+nrow(bihar)\
+\
+cambodia<-read_excel("Cambodia, Laos, Myanmar, PNG proposed coal plants.xlsx")\
+cambodia$"Chinese Name" <- NA\
+cambodia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+cambodia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+cambodia <- cambodia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(cambodia)\
+nrow(cambodia)\
+\
+canada<-read_excel("Canada Proposed and Existing Plants.xlsx")\
+canada$"Chinese Name" <- NA\
+canada$"Sort code" <- NA\
+canada$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+canada$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+canada <- canada[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(canada)\
+nrow(canada)\
+\
+chhattisgarh<-read_excel("Chhattisgarh proposed coal plants.xlsx")\
+chhattisgarh$"Chinese Name" <- NA\
+chhattisgarh$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+chhattisgarh$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+chhattisgarh <- chhattisgarh[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(chhattisgarh)\
+nrow(chhattisgarh)\
+\
+chongqing<-read_excel("Chongqing proposed coal plants.xlsx")\
+chongqing$"Permits" <- NA\
+chongqing$"Sort code" <- NA\
+chongqing$"Status (detail)" <- NA\
+chongqing <- chongqing[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(chongqing)\
+nrow(chongqing)\
+\
+europepre<-read_excel("Europe pre-2010 coal plants.xlsx")\
+europepre$"Chinese Name" <- NA\
+europepre$"Sort code" <- NA\
+europepre$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+europepre$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+europepre <- europepre[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(europepre)\
+nrow(europepre)\
+\
+europe<-read_excel("Europe proposed coal plants.xlsx")\
+europe$"Chinese Name" <- NA\
+europe$"Status (detail)" <- NA\
+europe$"Sort code" <- NA\
+europe$"RETIRED" <- NA\
+europe$"COMPID" <- NA\
+europe$"Planned Retire" <- NA\
+europe$"Reference" <- NA\
+europe$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+europe$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+europe <- europe[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(europe)\
+nrow(europe)\
+\
+fujian<-read_excel("Fujian proposed coal plants.xlsx")\
+fujian$"Permits" <- NA\
+fujian$"Status (detail)" <- NA\
+fujian$"Sort code" <- NA\
+fujian <- fujian[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(fujian)\
+nrow(fujian)\
+\
+gansu<-read_excel("Gansu proposed coal plants.xlsx")\
+gansu$"Permits" <- NA\
+gansu$"Status (detail)" <- NA\
+gansu$"Sort code" <- NA\
+gansu <- gansu[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(gansu)\
+nrow(gansu)\
+\
+guangdong<-read_excel("Guangdong proposed coal plants.xlsx")\
+guangdong$"Permits" <- NA\
+guangdong$"Status (detail)" <- NA\
+guangdong$"Sort code" <- NA\
+guangdong <- guangdong[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(guangdong)\
+nrow(guangdong)\
+\
+guangxi<-read_excel("Guangxi proposed coal plants.xlsx")\
+guangxi$"Permits" <- NA\
+guangxi$"Status (detail)" <- NA\
+guangxi$"Sort code" <- NA\
+guangxi <- guangxi[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(guangxi)\
+nrow(guangxi)\
+\
+guizhou<-read_excel("Guizhou proposed coal plants.xlsx")\
+guizhou$"Permits" <- NA\
+guizhou$"Status (detail)" <- NA\
+guizhou$"Sort code" <- NA\
+guizhou <- guizhou[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(guizhou)\
+nrow(guizhou)\
+\
+gujarat<-read_excel("Gujarat proposed coal plants.xlsx")\
+gujarat$"Chinese Name" <- NA\
+gujarat$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+gujarat$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+gujarat <- gujarat[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(gujarat)\
+nrow(gujarat)\
+\
+haryana<-read_excel("Haryana proposed coal plants.xlsx")\
+haryana$"Chinese Name" <- NA\
+haryana$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+haryana$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+haryana <- haryana[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(haryana)\
+nrow(haryana)\
+\
+hebei<-read_excel("Hebei proposed coal plants.xlsx")\
+hebei$"Permits" <- NA\
+hebei$"Status (detail)" <- NA\
+hebei$"Sort code" <- NA\
+hebei <- hebei[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(hebei)\
+nrow(hebei)\
+\
+heilongjiang<-read_excel("Heilongjiang proposed coal plants.xlsx")\
+heilongjiang$"Permits" <- NA\
+heilongjiang$"Status (detail)" <- NA\
+heilongjiang$"Sort code" <- NA\
+heilongjiang <- heilongjiang[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(heilongjiang)\
+nrow(heilongjiang)\
+\
+henan<-read_excel("Henan proposed coal plants.xlsx")\
+henan$"Permits" <- NA\
+henan$"Status (detail)" <- NA\
+henan$"Sort code" <- NA\
+henan <- henan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(henan)\
+nrow(henan)\
+\
+hubei<-read_excel("Hubei proposed coal plants.xlsx")\
+hubei$"Permits" <- NA\
+hubei$"Status (detail)" <- NA\
+hubei$"Sort code" <- NA\
+hubei <- hubei[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(hubei)\
+nrow(hubei)\
+\
+hunan<-read_excel("Hunan proposed coal plants.xlsx")\
+hunan$"Permits" <- NA\
+hunan$"Status (detail)" <- NA\
+hunan$"Sort code" <- NA\
+hunan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+hunan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+hunan <- hunan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(hunan)\
+nrow(hunan)\
+\
+indonesia<-read_excel("Indonesia coal plants.xlsx")\
+indonesia$"Chinese Name" <- NA\
+indonesia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+indonesia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+indonesia <- indonesia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(indonesia)\
+nrow(indonesia)\
+\
+innermong<-read_excel("Inner Mongolia coal plants.xlsx")\
+innermong$"Permits" <- NA\
+innermong$"Status (detail)" <- NA\
+innermong$"Sort code" <- NA\
+innermong <- innermong[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(innermong)\
+nrow(innermong)\
+\
+japan<-read_excel("Japan coal plants.xlsx")\
+japan$"Chinese Name" <- NA\
+japan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+japan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+japan <- japan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(japan)\
+nrow(japan)\
+\
+jharkhand<-read_excel("Jharkhand proposed coal plants.xlsx")\
+jharkhand$"Chinese Name" <- NA\
+jharkhand$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+jharkhand$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+jharkhand <- jharkhand[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(jharkhand)\
+nrow(jharkhand)\
+\
+jiangsu<-read_excel("Jiangsu proposed coal plants.xlsx")\
+jiangsu$"Permits" <- NA\
+jiangsu$"Status (detail)" <- NA\
+jiangsu$"Sort code" <- NA\
+jiangsu <- jiangsu[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(jiangsu)\
+nrow(jiangsu)\
+\
+jiangxi<-read_excel("Jiangxi proposed coal plants.xlsx")\
+jiangxi$"Permits" <- NA\
+jiangxi$"Status (detail)" <- NA\
+jiangxi$"Sort code" <- NA\
+jiangxi <- jiangxi[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(jiangxi)\
+nrow(jiangxi)\
+\
+jilin<-read_excel("Jilin proposed coal plants.xlsx")\
+jilin$"Permits" <- NA\
+jilin$"Status (detail)" <- NA\
+jilin$"Sort code" <- NA\
+jilin <- jilin[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(jilin)\
+nrow(jilin)\
+\
+karnataka<-read_excel("Karnataka proposed coal plants.xlsx")\
+karnataka$"Chinese Name" <- NA\
+karnataka$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+karnataka$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+karnataka <- karnataka[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(karnataka)\
+nrow(karnataka)\
+\
+latinam<-read_excel("Latin America coal plants.xlsx")\
+latinam$"Chinese Name" <- NA\
+latinam$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+latinam$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+latinam <- latinam[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(latinam)\
+nrow(latinam)\
+\
+liaoning<-read_excel("Liaoning proposed coal plants.xlsx")\
+liaoning$"Permits" <- NA\
+liaoning$"Status (detail)" <- NA\
+liaoning$"Sort code" <- NA\
+liaoning <- liaoning[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(liaoning)\
+nrow(liaoning)\
+\
+madhya<-read_excel("Madhya Pradesh proposed coal plants.xlsx")\
+madhya$"Chinese Name" <- NA\
+madhya$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+madhya$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+madhya <- madhya[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(madhya)\
+nrow(madhya)\
+\
+maharashtra<-read_excel("Maharashtra proposed coal plants.xlsx")\
+maharashtra$"Chinese Name" <- NA\
+maharashtra$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+maharashtra$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+maharashtra <- maharashtra[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(maharashtra)\
+nrow(maharashtra)\
+\
+malaysia<-read_excel("Malaysia proposed coal plants.xlsx")\
+malaysia$"Chinese Name" <- NA\
+malaysia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+malaysia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+malaysia <- malaysia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(malaysia)\
+nrow(malaysia)\
+\
+mideast<-read_excel("Middle East and Central Asia coal plants.xlsx")\
+mideast$"Chinese Name" <- NA\
+mideast$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+mideast$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+mideast <- mideast[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(mideast)\
+nrow(mideast)\
+\
+mongolia<-read_excel("Mongolia proposed coal plants.xlsx")\
+mongolia$"Chinese Name" <- NA\
+mongolia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+mongolia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+mongolia <- mongolia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(mongolia)\
+nrow(mongolia)\
+\
+ningxia<-read_excel("Ningxia proposed coal plants.xlsx")\
+ningxia$"Permits" <- NA\
+ningxia$"Status (detail)" <- NA\
+ningxia$"Sort code" <- NA\
+ningxia <- ningxia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(ningxia)\
+nrow(ningxia)\
+\
+northkorea<-read_excel("North Korea existing and proposed plants.xlsx")\
+northkorea$"Chinese Name" <- NA\
+northkorea$"Sort code" <- NA\
+northkorea$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+northkorea$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+northkorea <- northkorea[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(northkorea)\
+nrow(northkorea)\
+\
+odisha<-read_excel("Odisha proposed coal plants.xlsx")\
+odisha$"Chinese Name" <- NA\
+odisha$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+odisha$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+odisha <- odisha[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(odisha)\
+nrow(odisha)\
+\
+otherchina<-read_excel("Other Chinese provinces proposed coal plants.xlsx")\
+otherchina$"Permits" <- NA\
+otherchina$"Status (detail)" <- NA\
+otherchina$"Sort code" <- NA\
+otherchina <- otherchina[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(otherchina)\
+nrow(otherchina)\
+\
+otherindian<-read_excel("Other Indian states proposed coal plants.xlsx")\
+otherindian$"Chinese Name" <- NA\
+otherindian$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+otherindian$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+otherindian <- otherindian[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(otherindian)\
+nrow(otherindian)\
+\
+pakistan<-read_excel("Pakistan proposed coal plants.xlsx")\
+pakistan$"Chinese Name" <- NA\
+pakistan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+pakistan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+pakistan <- pakistan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(pakistan)\
+nrow(pakistan)\
+\
+philippines<-read_excel("Philippines proposed coal plants.xlsx")\
+philippines$"Chinese Name" <- NA\
+philippines$"Status (detail)" <- NA\
+philippines$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+philippines$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+philippines <- philippines[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(philippines)\
+nrow(philippines)\
+\
+punjab<-read_excel("Punjab proposed coal plants.xlsx")\
+punjab$"Chinese Name" <- NA\
+punjab$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+punjab$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+punjab <- punjab[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(punjab)\
+nrow(punjab)\
+\
+qinghai<-read_excel("Qinghai proposed coal plants.xlsx")\
+qinghai$"Permits" <- NA\
+qinghai$"Status (detail)" <- NA\
+qinghai$"Sort code" <- NA\
+qinghai <- qinghai[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(qinghai)\
+nrow(qinghai)\
+\
+rajasthan<-read_excel("Rajasthan proposed coal plants.xlsx")\
+rajasthan$"Chinese Name" <- NA\
+rajasthan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+rajasthan$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+rajasthan <- rajasthan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(rajasthan)\
+nrow(rajasthan)\
+\
+russia<-read_excel("Russia proposed plants.xlsx")\
+russia$"Chinese Name" <- NA\
+russia$"Sort code" <- NA\
+russia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+russia$"\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 " <- NA\
+russia <- russia[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(russia)\
+nrow(russia)\
+\
+shaanxi<-read_excel("Shaanxi coal plants.xlsx")\
+shaanxi$"Permits" <- NA\
+shaanxi$"Status (detail)" <- NA\
+shaanxi$"Sort code" <- NA\
+shaanxi <- shaanxi[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(shaanxi)\
+nrow(shaanxi)\
+\
+shandong<-read_excel("Shandong coal plants.xlsx")\
+shandong$"Permits" <- NA\
+shandong$"Status (detail)" <- NA\
+shandong$"Sort code" <- NA\
+shandong <- shandong[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(shandong)\
+nrow(shandong)\
+\
+shanxi<-read_excel("Shanxi proposed coal plants.xlsx")\
+shanxi$"Permits" <- NA\
+shanxi$"Status (detail)" <- NA\
+shanxi$"Sort code" <- NA\
+shanxi <- shanxi[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(shanxi)\
+nrow(shanxi)\
+\
+sichuan<-read_excel("Sichuan proposed coal plants.xlsx")\
+sichuan$"Permits" <- NA\
+sichuan$"Status (detail)" <- NA\
+sichuan$"Sort code" <- NA\
+sichuan <- sichuan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(sichuan)\
+nrow(sichuan)\
+\
+southkorea<-read_excel("South Korea coal plants.xlsx")\
+southkorea$"Chinese Name" <- NA\
+southkorea$"Suspension policy" <- NA\
+southkorea$"Pre-suspension status" <- NA\
+southkorea <- southkorea[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(southkorea)\
+nrow(southkorea)\
+\
+srilanka<-read_excel("Sri Lanka proposed coal plants.xlsx")\
+srilanka$"Chinese Name" <- NA\
+srilanka$"Suspension policy" <- NA\
+srilanka$"Pre-suspension status" <- NA\
+srilanka <- srilanka[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(srilanka)\
+nrow(srilanka)\
+\
+taiwan<-read_excel("Taiwan coal plants.xlsx")\
+taiwan$"Chinese Name" <- NA\
+taiwan$"Other names" <- NA\
+taiwan$"Suspension policy" <- NA\
+taiwan$"Pre-suspension status" <- NA\
+taiwan <- taiwan[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(taiwan)\
+nrow(taiwan)\
+\
+tamilnadu<-read_excel("Tamil Nadu proposed coal plants.xlsx")\
+tamilnadu$"Chinese Name" <- NA\
+tamilnadu$"Suspension policy" <- NA\
+tamilnadu$"Pre-suspension status" <- NA\
+tamilnadu <- tamilnadu[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(tamilnadu)\
+nrow(tamilnadu)\
+\
+thailand<-read_excel("Thailand proposed coal plants.xlsx")\
+thailand$"Chinese Name" <- NA\
+thailand$"Suspension policy" <- NA\
+thailand$"Pre-suspension status" <- NA\
+thailand <- thailand[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(thailand)\
+nrow(thailand)\
+\
+turkey<-read_excel("Turkey existing and proposed coal plants.xlsx")\
+turkey$"Chinese Name" <- NA\
+turkey$"Suspension policy" <- NA\
+turkey$"Pre-suspension status" <- NA\
+turkey <- turkey[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(turkey)\
+nrow(turkey)\
+\
+unitedstates<-read_excel("United States coal plants.xlsx")\
+unitedstates$"Chinese Name" <- NA\
+unitedstates$"Sort code" <- NA\
+unitedstates$"Suspension policy" <- NA\
+unitedstates$"Pre-suspension status" <- NA\
+unitedstates <- unitedstates[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(unitedstates)\
+nrow(unitedstates)\
+\
+uttar<-read_excel("Uttar Pradesh proposed coal plants.xlsx")\
+uttar$"Chinese Name" <- NA\
+uttar$"Suspension policy" <- NA\
+uttar$"Pre-suspension status" <- NA\
+uttar <- uttar[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(uttar)\
+nrow(uttar)\
+\
+vietnam<-read_excel("Vietnam coal plants.xlsx")\
+vietnam$"Chinese Name" <- NA\
+vietnam$"Suspension policy" <- NA\
+vietnam$"Pre-suspension status" <- NA\
+vietnam <- vietnam[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(vietnam)\
+nrow(vietnam)\
+\
+westbengal<-read_excel("West Bengal proposed coal plants.xlsx")\
+westbengal$"Chinese Name" <- NA\
+westbengal$"Suspension policy" <- NA\
+westbengal$"Pre-suspension status" <- NA\
+westbengal <- westbengal[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(westbengal)\
+nrow(westbengal)\
+\
+xinjiang<-read_excel("Xinjiang proposed coal plants.xlsx")\
+xinjiang$"Local area (taluk, county)" <- NA\
+xinjiang$"Permits" <- NA\
+xinjiang$"Status (detail)" <- NA\
+xinjiang$"Sort code" <- NA\
+xinjiang <- xinjiang[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(xinjiang)\
+nrow(xinjiang)\
+\
+zhejiang<-read_excel("Zhejiang coal plants.xlsx")\
+zhejiang$"Permits" <- NA\
+zhejiang$"Status (detail)" <- NA\
+zhejiang$"Sort code" <- NA\
+zhejiang <- zhejiang[c("Accuracy","Capacity (MW)","Chinese Name","Coal source","Coal type","Combustion technology","COMPID","Country","Latitude","Longitude","Local area (taluk, county)","Location","Location ID","Major area (prefecture, district)","Other names","Parent","Permits","Planned Retire","Plant","Reference","Region","RETIRED","Sort code","Sponsor","Status","Status (detail)","Subnational unit (province, state)","Tracker ID","Unit","Unit ID","Wiki page","Year","\cf2 \cb3 \expnd0\expndtw0\kerning0
+TrackerLOC\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf2 \cb1  \cf0 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+ParentID\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Suspension policy\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+,\cf0 \cb1 \kerning1\expnd0\expndtw0 "\cf2 \cb3 \expnd0\expndtw0\kerning0
+Pre-suspension status\cf0 \cb1 \kerning1\expnd0\expndtw0 ")]\
+names(zhejiang)\
+nrow(zhejiang)\
+\
+#merge datasets\
+\
+total<-rbind(africa,andhra,anhui,australia,bangladesh,bihar,cambodia,canada,chhattisgarh,chongqing,europepre,europe,fujian,gansu,guangdong,guangxi,guizhou,gujarat,haryana,hebei,heilongjiang,henan,hubei,hunan,indonesia,innermong,japan,jharkhand,jiangsu,jiangxi,jilin,karnataka,latinam,liaoning,madhya,maharashtra,malaysia,mideast,mongolia,ningxia,northkorea,odisha,otherchina,otherindian,pakistan,philippines,punjab,qinghai,rajasthan,russia,shaanxi,shandong,shanxi,sichuan,southkorea,srilanka,taiwan,tamilnadu,thailand,turkey,unitedstates,uttar,vietnam,westbengal,xinjiang,zhejiang)\
+\
+#write dataset\
+library(writexl)\
+write_xlsx(total,"merged.xlsx")\
+\
+}

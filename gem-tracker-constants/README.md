@@ -4,12 +4,23 @@ Canonical fuel buckets and status orderings used by Global Energy Monitor's GOIT
 
 Before this existed, every release notebook re-declared the same `OIL_FUEL_OPTIONS` / `NGL_FUEL_OPTIONS` / `GAS_FUEL_OPTIONS` lists inline, with a comment pointing at a "horse's mouth" elsewhere. This is the horse's mouth.
 
+This package lives inside the `goit-ggit-data-ops` repo (merged June 2026).
+It was formerly the standalone `bairdlangenbrunner/gem-tracker-constants`
+repo — the old `v0.x` tags still resolve there for historical notebook pins.
+
 ## Install
 
-Pin to a tag in any consumer notebook:
+Editable install from the `goit-ggit-data-ops` repo root:
+
+```bash
+pip install -e ./gem-tracker-constants
+```
+
+or from a consumer notebook in this repo (adjust the relative path to where
+the notebook lives):
 
 ```python
-!pip install -q git+https://github.com/bairdlangenbrunner/gem-tracker-constants.git@v0.4.0
+%pip install -q -e ../../gem-tracker-constants
 ```
 
 ## Use
@@ -55,7 +66,7 @@ Each bucket is the list of raw `Fuel`-column strings that count as that fuel typ
 | `HYDROGEN_FUEL_OPTIONS` | Hydrogen-only pipelines. |
 | `OIL_FUEL_OPTIONS` | Strings that count as an oil pipeline — oil alone or mixed with NGLs, condensate, or oil products. This is the Oil bucket the release downloads (xlsx / geojson / gpkg / shapefile) and qc summary tables filter on. |
 | `NGL_FUEL_OPTIONS` | Strings that count as an NGL pipeline — those explicitly naming an NGL (NGL, LPG, `Condensate/NGL`). Naphtha-only strings and standalone `Condensate` do **not** qualify. |
-| `OIL_NGL_COMBINED` | Everything in the combined Oil-NGL release downloads: the oil and NGL buckets **plus** the tracker strings that are neither (`Oil products (only)`, `Naphtha (only)`, `Naphtha, oil products`, `Condensate`). Mirrors the data-requests notebook's `fuel_options`. |
+| `OIL_NGL_COMBINED` | Everything in the combined Oil-NGL release downloads: the oil and NGL buckets **plus** the tracker strings that are neither (`Oil products (only)`, `Naphtha (only)`, `Naphtha, oil products`, `Condensate`). Mirrors the `fuel_options` in the release-downloads export notebook (`scripts/data-file-creation/`). |
 
 ### Which `Fuel` strings land in which bucket
 

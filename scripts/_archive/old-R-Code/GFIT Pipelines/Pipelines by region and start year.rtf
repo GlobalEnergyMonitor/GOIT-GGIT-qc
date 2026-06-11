@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 #pipelines by region and start year, operating pipelines built between 1980 and 2018\
+\
+pipe<-read.csv("pipe.csv", header=TRUE)\
+pipe<-subset(pipe, pipe$Fuel=="Gas")\
+pipe$CurrentBOE.d[is.na(pipe$CurrentBOE.d)] <- ""\
+pipe$PropBOE.d[is.na(pipe$PropBOE.d)] <- ""\
+names(pipe)\
+pipe<-pipe[c(11,13,20,21,33,34)]\
+pipe1 <- subset(pipe, pipe$CurrentBOE.d!="" & pipe$PropBOE.d=="") #operating w/out expansion, retired, mothballed\
+pipe1$CurrentBOE.d <- as.numeric(pipe1$CurrentBOE.d)\
+pipe1$PropBOE.d <- as.numeric(pipe1$PropBOE.d)\
+pipe2 <- subset(pipe, pipe$PropBOE.d!="" & pipe$CurrentBOE.d=="") #proposed, construction, cancelled, shelved\
+pipe2$CurrentBOE.d <- as.numeric(pipe2$CurrentBOE.d)\
+pipe2$PropBOE.d <- as.numeric(pipe2$PropBOE.d)\
+pipe3 <- subset(pipe, pipe$CurrentBOE.d!="" & pipe$PropBOE.d!="") #operating with expansion planned \
+pipe3$CurrentBOE.d <- as.numeric(pipe3$CurrentBOE.d)\
+pipe3$PropBOE.d <- as.numeric(pipe3$PropBOE.d)\
+pipe1$CurrentBOE.d2<-(pipe1$CurrentBOE.d)/2\
+pipe1$CurrentBOE.d3=pipe1$CurrentBOE.d2\
+names(pipe1)\
+pipe1<-pipe1[c(1,2,5,6,7,8)]\
+names(pipe1)\
+pipe1region1<-pipe1[c(1,2,3,5)]\
+pipe1region2<-pipe1[c(1,2,4,6)]\
+names(pipe1region1)\
+names(pipe1region2)\
+names(pipe1region1)[4]<-"BOE"\
+names(pipe1region1)[3]<-"Region"\
+names(pipe1region2)[3]<-"Region"\
+names(pipe1region2)[4]<-"BOE"\
+pipe1<-rbind(pipe1region1, pipe1region2)\
+pipe2$PropBOE.d2 <- (pipe2$PropBOE.d)/2\
+pipe2$PropBOE.d3=pipe2$PropBOE.d2\
+names(pipe2) \
+pipe2<-pipe2[c(1,2,5,6,7,8)]\
+names(pipe2)\
+pipe2region1<-pipe2[c(1,2,3,5)]\
+pipe2region2<-pipe2[c(1,2,4,6)]\
+names(pipe2region1)\
+names(pipe2region2)\
+names(pipe2region1)[4]<-"BOE"\
+names(pipe2region1)[3]<-"Region"\
+names(pipe2region2)[4]<-"BOE"\
+names(pipe2region2)[3]<-"Region"\
+pipe2<-rbind(pipe2region1,pipe2region2)\
+\
+names(pipe3)   \
+head(pipe3) \
+operating<-pipe3[c(1,2,3,4,5)]\
+operating<-pipe3[c(1,2,3,5,6)]\
+proposed<-pipe3[c(1,2,4,5,6)]\
+proposed$Status="Proposed"\
+operating$Status="Operating"\
+proposed$PropBOE.d2 <- (proposed$PropBOE.d)/2\
+proposed$PropBOE.d3=proposed$PropBOE.d2\
+names(proposed)\
+proposed<-proposed[c(1,2,4,5,6,7)]\
+names(proposed)\
+propregion1<-proposed[c(1,2,3,5)]\
+propregion2<-proposed[c(1,2,4,6)]\
+names(propregion1)\
+names(propregion2)\
+names(propregion1)[4]<-"BOE"\
+names(propregion1)[3]<-"Region"\
+names(propregion2)[4]<-"BOE"\
+names(propregion2)[3]<-"Region"\
+proposed<-rbind(propregion1, propregion2)\
+operating$CurrentBOE.d2 <- (operating$CurrentBOE.d)/2\
+operating$CurrentBOE.d3=operating$CurrentBOE.d2\
+names(operating)\
+operating<-operating[c(1,2,4,5,6,7)]\
+names(operating)\
+opregion1<-operating[c(1,2,3,5)]\
+opregion2<-operating[c(1,2,4,6)]\
+names(opregion1)\
+names(opregion2)\
+names(opregion1)[4]<-"BOE"\
+names(opregion1)[3]<-"Region"\
+names(opregion2)[4]<-"BOE"\
+names(opregion2)[3]<-"Region"\
+operating<-rbind(opregion1, opregion2)\
+pipe3<-rbind(proposed, operating) \
+combo<-rbind(pipe1, pipe2, pipe3) \
+library(reshape2)\
+combo2 <- combo[ which(combo$StartYear1>=1980 & combo$StartYear1<=2018), ]\
+combo2 <- combo2[ which(combo2$Status=="Operating"), ]\
+aggcap <- dcast(combo2, StartYear1 ~ Region, value.var = "BOE", fun.aggregate = sum)\
+write.csv(aggcap,'aggcap.csv')}

@@ -1,0 +1,51 @@
+# data file creation (release downloads)
+
+Notebook for producing data-release downloads and ad-hoc data requests from
+GEM's [Global Oil Infrastructure Tracker (GOIT)](https://globalenergymonitor.org/projects/global-oil-infrastructure-tracker/)
+and [Global Gas Infrastructure Tracker (GGIT)](https://globalenergymonitor.org/projects/global-gas-infrastructure-tracker/).
+
+(Formerly the standalone `goit-ggit-data-requests` repo, merged into this repo
+in June 2026.)
+
+## Main notebook
+
+[`convert-ggit-goit-to-tracker-release-downloads.ipynb`](convert-ggit-goit-to-tracker-release-downloads.ipynb)
+exports pipeline (and optionally LNG terminal) data from the tracker Google
+Sheets to Excel / GeoJSON / GeoPackage / zipped Shapefile, joining route
+geometries from the `goit-ggit-pipeline-routes` repo.
+
+Configuration lives in the notebook's Configuration cell:
+
+- **`PIPELINE_TYPE`** — `'Oil-NGL'` | `'Oil'` | `'NGL'` | `'Gas'` | `'Gas-Hydrogen'` | `'Hydrogen'` | `'Oil-and-Gas'`
+- **`SIMPLIFY_FUELS`** — `None` | `'Oil'` | `'NGL'` | `'Oil-and-NGL'` | `'Gas'`;
+  relabels fuels for the simplified release downloads using the canonical
+  `OIL_FUEL_OPTIONS` / `NGL_FUEL_OPTIONS` buckets from
+  [gem-tracker-constants](../../gem-tracker-constants/) (in this repo)
+- **`FILTER_STATUS`** / **`FILTER_COUNTRIES`** — optional row filters
+
+Outputs are written to `data-files/`.
+
+## Requirements
+
+- Python with `pandas`, `geopandas`, `shapely`, `pygsheets`, `openpyxl`
+- `gem-tracker-constants` (lives in this repo at
+  [`../../gem-tracker-constants/`](../../gem-tracker-constants/), installed by
+  the notebook's first cell) — single source of truth for fuel buckets and
+  status orderings, shared with the QC summary sheets in this repo so release
+  totals match QC summary totals
+- `GDRIVE_API_CREDENTIALS` environment variable pointing at a Google service
+  account with access to the tracker sheets
+- A local checkout of `goit-ggit-pipeline-routes` (path set via
+  `PIPELINE_ROUTES_PATH` in the Configuration cell)
+
+## Related repos
+
+- [`goit-ggit-pipeline-routes`](https://github.com/GlobalEnergyMonitor/goit-ggit-pipeline-routes) — per-pipeline route geometries (`<ProjectID>.geojson`)
+- [`gem-tracker-constants`](../../gem-tracker-constants/) — canonical fuel buckets and status orderings (now part of this repo; merged June 2026)
+
+## Notes on data files
+
+Release artifacts (`.gpkg`, `.zip`) in `data-files/` are committed
+deliberately as part of a release; intermediate formats (`.xlsx`, `.geojson`,
+`.csv`) are gitignored. Keep individual committed files under GitHub's 100 MB
+hard limit.
