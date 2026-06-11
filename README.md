@@ -26,6 +26,7 @@ notebooks/
 │   ├── 2025-q4-gas-pipelines/
 │   ├── 2026-q2-oil-pipelines/
 │   └── _archive/                     2022–2023 releases (pre-folder-per-release convention)
+├── release-download-qc/              pre-distribution checks for release download files
 ├── researcher-requests-scripts/      researcher allocation calculations, by year
 ├── terminals-qc/                     ad-hoc LNG terminal QC
 ├── wiki-page-cleanup-automation/     parsing/scraping wiki XML refs
@@ -44,6 +45,7 @@ For a new quarterly release:
    - `GOIT-GGIT-owner-parent-importing-ownership-tracker-CURRENT.ipynb` (pipelines)
    - `GGIT-terminals-owner-parent-scripts-CURRENT.ipynb` (LNG terminals)
 3. **Summary sheets** — create a new `data-release-summary-sheets/YYYY-qN-<tracker>/` folder and copy the most recent prior release notebook as the starting point.
+4. **Release download QC** — after `goit-ggit-data-requests` produces the download files, run `notebooks/release-download-qc/qc-release-downloads.py` against them (see that folder's README). Fix anything it flags and re-export before distribution.
 
 ## Conventions
 
