@@ -1,6 +1,6 @@
 # GOIT pipelines summary sheets — June 2026 release
 
-Methodology for the tables produced by `GOIT-pipelines-summary-sheets-June2026-release-v2.ipynb`.
+Methodology for the tables produced by `GOIT-pipelines-summary-sheets-June2026-release.ipynb`.
 
 The notebook is run **once per fuel** (`FUEL_TYPE` ∈ `{"Gas", "Oil", "NGL"}`) and once per
 `REGION_NAME` filter (`"Global"` or a tracker code such as `"AsiaGasTracker"`,
