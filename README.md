@@ -13,7 +13,7 @@ Sheets to Excel / GeoJSON / GeoPackage, joining route geometries from the
 
 Configuration lives in the notebook's Configuration cell:
 
-- **`PIPELINE_TYPE`** — `'Oil-NGL'` | `'Gas'` | `'Gas-Hydrogen'` | `'Hydrogen'` | `'Oil-and-Gas'`
+- **`PIPELINE_TYPE`** — `'Oil-NGL'` | `'Oil'` | `'NGL'` | `'Gas'` | `'Gas-Hydrogen'` | `'Hydrogen'` | `'Oil-and-Gas'`
 - **`SIMPLIFY_FUELS`** — `None` | `'Oil'` | `'NGL'` | `'Oil-and-NGL'` | `'Gas'`;
   relabels fuels for the simplified release downloads using the canonical
   `OIL_FUEL_OPTIONS` / `NGL_FUEL_OPTIONS` buckets from
