@@ -2,26 +2,43 @@ from gem_tracker_constants import (
     NGL_FUEL_OPTIONS,
     OIL_FUEL_OPTIONS,
     OIL_NGL_COMBINED,
-    SIMPLIFIED_NGL_FUEL_OPTIONS,
-    SIMPLIFIED_OIL_FUEL_OPTIONS,
 )
 
 SHARED = {"Oil, NGL", "Oil, NGL, naphtha"}
-REFINED_ONLY = {"Oil products (only)", "Naphtha (only)"}
+# Strings in the Oil-NGL tracker that are neither Oil nor NGL: refined-product
+# pipelines and standalone condensate. They ship in the combined release but
+# must not appear in the oil or ngl buckets.
+NEITHER_OIL_NOR_NGL = {
+    "Oil products (only)",
+    "Naphtha (only)",
+    "Naphtha, oil products",
+    "Condensate",
+}
 
 
-def test_oil_and_ngl_share_the_multi_fuel_entries():
+def test_oil_and_ngl_overlap_is_exactly_the_shared_entries():
     """'Oil, NGL' and 'Oil, NGL, naphtha' must appear in BOTH buckets so that
-    a pipeline tagged with one of those values is counted in oil and NGL."""
-    assert SHARED.issubset(set(OIL_FUEL_OPTIONS))
-    assert SHARED.issubset(set(NGL_FUEL_OPTIONS))
+    a pipeline tagged with one of those values is counted in oil and NGL —
+    and nothing else may live in both buckets."""
+    assert set(OIL_FUEL_OPTIONS) & set(NGL_FUEL_OPTIONS) == SHARED
 
 
-def test_oil_ngl_union_equals_combined():
+def test_combined_is_union_plus_neither_strings():
     """OIL_NGL_COMBINED is the canonical Oil-NGL list used in the
-    data-requests release pipeline; its set must equal the union of the
-    individual buckets."""
-    assert set(OIL_FUEL_OPTIONS) | set(NGL_FUEL_OPTIONS) == set(OIL_NGL_COMBINED)
+    data-requests release pipeline. It carries everything in the oil and ngl
+    buckets PLUS the tracker strings that are neither Oil nor NGL (so those
+    pipelines still ship in the combined release)."""
+    union = set(OIL_FUEL_OPTIONS) | set(NGL_FUEL_OPTIONS)
+    assert union | NEITHER_OIL_NOR_NGL == set(OIL_NGL_COMBINED)
+
+
+def test_buckets_exclude_neither_strings():
+    """Refined-product-only strings and standalone 'Condensate' must be
+    absent from BOTH buckets — none of them qualifies as an Oil or an NGL
+    pipeline on its own ('Condensate/NGL' qualifies because it names NGL)."""
+    for fuel in NEITHER_OIL_NOR_NGL:
+        assert fuel not in OIL_FUEL_OPTIONS
+        assert fuel not in NGL_FUEL_OPTIONS
 
 
 def test_no_duplicates_within_a_bucket():
@@ -30,29 +47,5 @@ def test_no_duplicates_within_a_bucket():
         ("OIL_FUEL_OPTIONS", OIL_FUEL_OPTIONS),
         ("NGL_FUEL_OPTIONS", NGL_FUEL_OPTIONS),
         ("OIL_NGL_COMBINED", OIL_NGL_COMBINED),
-        ("SIMPLIFIED_OIL_FUEL_OPTIONS", SIMPLIFIED_OIL_FUEL_OPTIONS),
-        ("SIMPLIFIED_NGL_FUEL_OPTIONS", SIMPLIFIED_NGL_FUEL_OPTIONS),
     ]:
         assert len(bucket) == len(set(bucket)), f"{name} has duplicate entries"
-
-
-def test_simplified_buckets_are_subsets_of_raw_buckets():
-    """The simplified buckets narrow the raw oil/ngl buckets — every entry must
-    appear in its raw counterpart."""
-    assert set(SIMPLIFIED_OIL_FUEL_OPTIONS).issubset(set(OIL_FUEL_OPTIONS))
-    assert set(SIMPLIFIED_NGL_FUEL_OPTIONS).issubset(set(NGL_FUEL_OPTIONS))
-
-
-def test_simplified_oil_and_ngl_share_the_multi_fuel_entries():
-    """Same dual-bucket overlap as the raw buckets: any pipeline tagged
-    'Oil, NGL' / 'Oil, NGL, naphtha' counts in BOTH simplified buckets."""
-    assert set(SIMPLIFIED_OIL_FUEL_OPTIONS) & set(SIMPLIFIED_NGL_FUEL_OPTIONS) == SHARED
-
-
-def test_simplified_excludes_refined_product_only():
-    """'Oil products (only)' and 'Naphtha (only)' must be absent from BOTH
-    simplified buckets — a pipeline carrying only refined products is neither
-    an Oil nor an NGL pipeline."""
-    for fuel in REFINED_ONLY:
-        assert fuel not in SIMPLIFIED_OIL_FUEL_OPTIONS
-        assert fuel not in SIMPLIFIED_NGL_FUEL_OPTIONS

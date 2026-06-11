@@ -2,13 +2,32 @@
 #
 # Source of truth for the Fuel-column values used by GOIT (oil/NGL) and GGIT
 # (gas) pipeline trackers. Each bucket is the set of raw `Fuel` strings that
-# count as that fuel type for filtering/aggregation.
+# count as that fuel type for filtering/aggregation. The oil/ngl buckets are
+# what the data-requests release downloads (xlsx / geojson / gpkg /
+# shapefile) and the qc summary tables filter on, so table totals match the
+# release totals pipeline-for-pipeline.
+#
+# Classification rule for the oil/ngl buckets:
+#   - A pipeline is an Oil pipeline if its Fuel string includes oil (alone or
+#     mixed with NGLs, condensate, or oil products).
+#   - A pipeline is an NGL pipeline if its Fuel string explicitly names an
+#     NGL (NGL, LPG). Naphtha is a *refined product*, not an NGL, and on its
+#     own does NOT make a pipeline an NGL pipeline. Standalone 'Condensate'
+#     doesn't qualify either; 'Condensate/NGL' counts because it names NGL.
+#   - A pipeline carrying ONLY refined products ('Oil products (only)',
+#     'Naphtha (only)', 'Naphtha, oil products') or only 'Condensate' is
+#     neither Oil nor NGL. Those strings live ONLY in oil_ngl_combined.
+#   - 'Oil, NGL' and 'Oil, NGL, naphtha' belong to BOTH buckets — naphtha
+#     doesn't disqualify them because oil and NGL are also present.
 #
 # Invariants (enforced by tests/test_fuel_invariants.py):
-#   1. `oil` and `ngl` intentionally overlap on the two shared multi-fuel
-#      strings 'Oil, NGL' and 'Oil, NGL, naphtha' — a single pipeline tagged
-#      with one of those values shows up in BOTH the oil and NGL aggregates.
-#   2. union(oil, ngl) == oil_ngl_combined, in any order.
+#   1. `oil` and `ngl` overlap on exactly the two shared multi-fuel strings
+#      'Oil, NGL' and 'Oil, NGL, naphtha' — a single pipeline tagged with one
+#      of those values shows up in BOTH the oil and NGL aggregates.
+#   2. oil_ngl_combined == union(oil, ngl) plus the tracker strings that are
+#      neither oil nor NGL but still ship in the combined Oil-NGL release:
+#      'Oil products (only)', 'Naphtha (only)', 'Naphtha, oil products',
+#      'Condensate'.
 #   3. `gas` includes 'Gas and Hydrogen'; consumers running a gas-only
 #      analysis should collapse it via helpers.collapse_gas_and_hydrogen().
 #
@@ -30,7 +49,6 @@ oil:
   - Oil
   - Oil, NGL
   - Oil, NGL, naphtha
-  - Oil products (only)
   - Oil, oil products
   - Oil, condensate
 
@@ -40,14 +58,14 @@ ngl:
   - Oil, NGL
   - Oil, NGL, naphtha
   - LPG
-  - Naphtha (only)
-  - Naphtha, oil products
-  - Condensate
   - Condensate/NGL
 
 # Combined oil+NGL list as used by the data-requests release pipeline
 # (GOIT-GGIT-data-requests/notebooks/convert-ggit-goit-to-tracker-release-downloads-CURRENT.ipynb,
-# `get_config('Oil-NGL')['fuel_options']`). Must equal union(oil, ngl).
+# `get_config('Oil-NGL')['fuel_options']`). Superset of union(oil, ngl): it
+# also carries the tracker strings that are neither oil nor NGL (see
+# classification rule above) so those pipelines still appear in the combined
+# Oil-NGL release downloads.
 oil_ngl_combined:
   - Oil
   - NGL
@@ -62,42 +80,3 @@ oil_ngl_combined:
   - Oil, oil products
   - Condensate/NGL
   - Oil, condensate
-
-# "Simplified" Oil/NGL buckets — the canonical set of raw Fuel strings that
-# count as an Oil or NGL pipeline for the data-requests release downloads
-# (xlsx / geojson / gpkg / shapefile). These are also the buckets the qc
-# summary tables filter on so that table totals match the release totals
-# pipeline-for-pipeline.
-#
-# Classification rule:
-#   - A pipeline is an Oil pipeline if its Fuel string includes oil (alone or
-#     mixed with NGLs, condensate, or oil products).
-#   - A pipeline is an NGL pipeline if its Fuel string includes a recognized
-#     NGL (NGL, LPG, condensate; naphtha is a *refined product*, not an NGL,
-#     and on its own does NOT make a pipeline an NGL pipeline).
-#   - A pipeline carrying ONLY refined products (e.g. 'Oil products (only)',
-#     'Naphtha (only)', 'Naphtha, oil products') is neither Oil nor NGL.
-#   - 'Oil, NGL' and 'Oil, NGL, naphtha' belong to BOTH buckets — naphtha
-#     doesn't disqualify them because oil and NGL are also present.
-#
-# Invariants (enforced by tests/test_fuel_invariants.py):
-#   4. simplified_oil ⊂ oil  and  simplified_ngl ⊂ ngl.
-#   5. simplified_oil ∩ simplified_ngl == {'Oil, NGL', 'Oil, NGL, naphtha'}
-#      — same dual-bucket overlap as the raw oil/ngl lists.
-#   6. 'Oil products (only)' and 'Naphtha (only)' must be absent from BOTH
-#      buckets — neither qualifies as Oil or NGL on its own.
-simplified_oil:
-  - Oil
-  - Oil, NGL
-  - Oil, NGL, naphtha
-  - Oil, condensate
-  - Oil, oil products
-
-simplified_ngl:
-  - NGL
-  - NGL, oil products
-  - LPG
-  - Oil, NGL
-  - Oil, NGL, naphtha
-  - Condensate
-  - Condensate/NGL

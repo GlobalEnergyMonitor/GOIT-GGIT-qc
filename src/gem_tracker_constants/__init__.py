@@ -7,24 +7,22 @@ otherwise re-declare inline (and drift out of sync).
 from __future__ import annotations
 
 from ._loader import FUELS, STATUSES
-from .helpers import collapse_gas_and_hydrogen
+from .helpers import collapse_gas_and_hydrogen, find_uncovered_fuels
 
-__version__ = "0.2.0"
+__version__ = "0.4.0"
 
 # Fuel buckets — raw `Fuel` column values that count as each fuel type.
 GAS_FUEL_OPTIONS: list[str] = FUELS["gas"]
 GAS_HYDROGEN_FUEL_OPTIONS: list[str] = FUELS["gas_hydrogen"]
 HYDROGEN_FUEL_OPTIONS: list[str] = FUELS["hydrogen"]
+# The oil/ngl buckets are the canonical classification used by the
+# data-requests release downloads and qc summary tables. Refined-product-only
+# strings ('Oil products (only)', 'Naphtha (only)', 'Naphtha, oil products')
+# and standalone 'Condensate' are neither Oil nor NGL; they appear only in
+# OIL_NGL_COMBINED. See fuels.yaml for the full classification rule.
 OIL_FUEL_OPTIONS: list[str] = FUELS["oil"]
 NGL_FUEL_OPTIONS: list[str] = FUELS["ngl"]
 OIL_NGL_COMBINED: list[str] = FUELS["oil_ngl_combined"]
-
-# "Simplified" Oil/NGL buckets — the canonical set of raw Fuel strings that
-# count as an Oil or NGL pipeline for the data-requests release downloads.
-# Naphtha-only and oil-products-only pipelines are excluded as refined-product
-# pipelines. See fuels.yaml for the full classification rule.
-SIMPLIFIED_OIL_FUEL_OPTIONS: list[str] = FUELS["simplified_oil"]
-SIMPLIFIED_NGL_FUEL_OPTIONS: list[str] = FUELS["simplified_ngl"]
 
 # Pipeline statuses — GOIT/GGIT use lowercase.
 PIPELINE_STATUS: list[str] = STATUSES["pipeline"]["base"]
@@ -44,8 +42,6 @@ __all__ = [
     "OIL_FUEL_OPTIONS",
     "NGL_FUEL_OPTIONS",
     "OIL_NGL_COMBINED",
-    "SIMPLIFIED_OIL_FUEL_OPTIONS",
-    "SIMPLIFIED_NGL_FUEL_OPTIONS",
     "PIPELINE_STATUS",
     "PIPELINE_EXCEL_STATUS",
     "PIPELINE_IN_DEV_COL",
@@ -53,4 +49,5 @@ __all__ = [
     "TERMINAL_EXCEL_STATUS",
     "TERMINAL_IN_DEV_COL",
     "collapse_gas_and_hydrogen",
+    "find_uncovered_fuels",
 ]
